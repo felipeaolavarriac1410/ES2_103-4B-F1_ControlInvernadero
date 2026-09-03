@@ -80,4 +80,18 @@
         app:layout_constraintStart_toStartOf="@id/edtPassword"
         app:layout_constraintTop_toBottomOf="@id/chkRecordarme" />
 
+    <!-- Botón de Limpiar: resetea campos de usuario, contraseña y recordarme, con fondo rojo y vinculado a onLimpiarClick -->
+    <Button
+        android:id="@+id/btnLimpiar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FF0000"
+        android:onClick="onLimpiarClick"
+        android:text="Limpiar"
+        app:layout_constraintEnd_toEndOf="@+id/btnIngresar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnIngresar"
+        app:layout_constraintTop_toBottomOf="@+id/btnIngresar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

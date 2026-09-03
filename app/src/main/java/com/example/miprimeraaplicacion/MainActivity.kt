@@ -72,4 +72,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    // Método público ejecutado automáticamente al hacer clic en el botón Limpiar (vía android:onClick)
+    fun onLimpiarClick(view: View) {
+        // Busca y obtiene la referencia del campo de texto de usuario por su ID
+        val edtUsuario = findViewById<EditText>(R.id.edtUsuario)
+        // Busca y obtiene la referencia del campo de texto de contraseña por su ID
+        val edtPassword = findViewById<EditText>(R.id.edtPassword)
+        // Busca y obtiene la referencia del checkbox "Recordarme" por su ID
+        val chkRecordarme = findViewById<CheckBox>(R.id.chkRecordarme)
+
+        // Limpia el texto del campo usuario dejándolo vacío
+        edtUsuario.setText("")
+        // Limpia el texto del campo contraseña dejándolo vacío
+        edtPassword.setText("")
+        // Desmarca la casilla de verificación de recordarme
+        chkRecordarme.isChecked = false
+    }
 }
