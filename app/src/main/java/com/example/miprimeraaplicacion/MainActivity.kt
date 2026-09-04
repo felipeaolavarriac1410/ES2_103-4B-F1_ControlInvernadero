@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.CheckBox
 // Importa el componente visual EditText para campos de entrada de texto
 import android.widget.EditText
+// Importa Patterns para utilizar patrones estándar de validación como direcciones de email
+import android.util.Patterns
 // Importa Toast para mostrar notificaciones flotantes temporales en pantalla
 import android.widget.Toast
 // Importa la función para habilitar el diseño de borde a borde (edge-to-edge)
@@ -23,6 +25,11 @@ import androidx.core.view.WindowInsetsCompat
 
 // Declaración de la clase principal de la pantalla de Login que hereda de AppCompatActivity
 class MainActivity : AppCompatActivity() {
+
+    // Variable de estado a nivel de clase para rastrear si la contraseña está visible (false por defecto)
+    var mostrandoPassword: Boolean = false
+    // Contador a nivel de clase para registrar la cantidad de intentos fallidos de inicio de sesión
+    var intentosFallidos: Int = 0
 
     // Método que se ejecuta al crearse la pantalla (primer paso del ciclo de vida)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +50,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Método público ejecutado automáticamente al hacer clic en el botón btnMostrarPassword (vía android:onClick)
+    fun onMostrarPasswordClick(view: View) {
+        // Busca y obtiene la referencia del campo de texto de contraseña por su ID
+        val edtPassword = findViewById<EditText>(R.id.edtPassword)
+
+        // Evalúa si la contraseña actualmente está oculta (mostrandoPassword == false)
+        if (!mostrandoPassword) {
+            // Cambia el tipo de entrada a texto visible (desenmascara la contraseña)
+            edtPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            // Actualiza el estado indicando que ahora la contraseña está visible
+            mostrandoPassword = true
+        } else {
+            // Cambia el tipo de entrada a texto oculto / contraseña (enmascara con puntos)
+            edtPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+            // Actualiza el estado indicando que ahora la contraseña está oculta
+            mostrandoPassword = false
+        }
+        // Mueve el cursor al final del texto para no reiniciar la posición de escritura
+        edtPassword.setSelection(edtPassword.text.length)
+    }
+
     // Método público ejecutado automáticamente al hacer clic en el botón Ingresar (vía android:onClick)
     fun onIngresarClick(view: View) {
         // Busca y obtiene la referencia del campo de texto de usuario por su ID
@@ -52,17 +80,54 @@ class MainActivity : AppCompatActivity() {
         // Busca y obtiene la referencia del checkbox "Recordarme" por su ID
         val chkRecordarme = findViewById<CheckBox>(R.id.chkRecordarme)
 
-        // Extrae el texto ingresado en el campo usuario y lo convierte a String
-        val usuario = edtUsuario.text.toString()
+        // Extrae el texto ingresado en el campo usuario y lo convierte a String eliminando espacios perimetrales
+        val usuario = edtUsuario.text.toString().trim()
         // Extrae el texto ingresado en el campo contraseña y lo convierte a String
         val password = edtPassword.text.toString()
         // Obtiene el estado booleano del CheckBox (true si está marcado, false si no)
         val recordar = chkRecordarme.isChecked
 
-        // Valida si alguno de los dos campos obligatorios está vacío
-        if (usuario.isEmpty() || password.isEmpty()) {
-            // Muestra un mensaje flotante breve advirtiendo al usuario que complete ambos campos
-            Toast.makeText(this, "Completa usuario y contraseña", Toast.LENGTH_SHORT).show()
+        // Bandera para controlar si todos los campos cumplen las validaciones requeridas
+        var esValido = true
+
+        // Valida si el campo usuario está vacío
+        if (usuario.isEmpty()) {
+            // Muestra mensaje de error flotante directo sobre el campo usuario
+            edtUsuario.error = "Ingresa tu email de usuario"
+            // Marca la validación general como falsa
+            esValido = false
+        // Valida si el formato de usuario no coincide con un correo electrónico válido
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(usuario).matches()) {
+            // Muestra error indicando que el formato de correo es incorrecto
+            edtUsuario.error = "Ingresa un email válido (ej: usuario@correo.com)"
+            // Marca la validación general como falsa
+            esValido = false
+        } else {
+            // Limpia cualquier error visual previo en el campo usuario
+            edtUsuario.error = null
+        }
+
+        // Valida si el campo contraseña está vacío
+        if (password.isEmpty()) {
+            // Muestra mensaje de error flotante directo sobre el campo contraseña
+            edtPassword.error = "Ingresa tu contraseña"
+            // Marca la validación general como falsa
+            esValido = false
+        // Valida si la contraseña tiene menos de 6 caracteres
+        } else if (password.length < 6) {
+            // Muestra mensaje de error indicando la longitud mínima requerida
+            edtPassword.error = "La contraseña debe tener al menos 6 caracteres"
+            // Marca la validación general como falsa
+            esValido = false
+        } else {
+            // Limpia cualquier error visual previo en el campo contraseña
+            edtPassword.error = null
+        }
+
+        // Si alguna validación falló
+        if (!esValido) {
+            // Incrementa en 1 el contador de intentos fallidos
+            intentosFallidos++
         } else {
             // Crea un Intent explícito indicando la pantalla actual (this) y la pantalla destino (BienvenidaActivity)
             val intent = Intent(this, BienvenidaActivity::class.java)
@@ -86,6 +151,10 @@ class MainActivity : AppCompatActivity() {
         edtUsuario.setText("")
         // Limpia el texto del campo contraseña dejándolo vacío
         edtPassword.setText("")
+        // Remueve cualquier mensaje de error visual activo en el campo usuario
+        edtUsuario.error = null
+        // Remueve cualquier mensaje de error visual activo en el campo contraseña
+        edtPassword.error = null
         // Desmarca la casilla de verificación de recordarme
         chkRecordarme.isChecked = false
     }
