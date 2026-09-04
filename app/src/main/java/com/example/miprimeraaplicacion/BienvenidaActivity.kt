@@ -1,7 +1,11 @@
 package com.example.miprimeraaplicacion
 
+// Importa Intent para permitir la navegación hacia la pantalla de Preferencias
+import android.content.Intent
 // Importa Bundle para el ciclo de vida de la Activity
 import android.os.Bundle
+// Importa View para recibir la vista que disparó el evento de clic
+import android.view.View
 // Importa TextView para manipular etiquetas de texto en pantalla
 import android.widget.TextView
 // Importa la función para soporte edge-to-edge
@@ -15,6 +19,9 @@ import androidx.core.view.WindowInsetsCompat
 
 // Declaración de la clase para la segunda pantalla (Bienvenida)
 class BienvenidaActivity : AppCompatActivity() {
+
+    // Variable a nivel de clase para almacenar el nombre de usuario recibido y reutilizarlo
+    private var nombreUsuario: String? = null
 
     // Método que se ejecuta al crearse esta pantalla
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +42,20 @@ class BienvenidaActivity : AppCompatActivity() {
         }
 
         // Lee el dato tipo String que fue enviado desde MainActivity con la clave "usuario"
-        val usuario = intent.getStringExtra("usuario")
+        nombreUsuario = intent.getStringExtra("usuario")
         // Busca y obtiene la referencia del TextView txtBienvenida definido en el XML
         val txtBienvenida = findViewById<TextView>(R.id.txtBienvenida)
         // Modifica el texto en pantalla concatenando el saludo con el valor recibido
-        txtBienvenida.text = "Bienvenido, $usuario"
+        txtBienvenida.text = "Bienvenido, $nombreUsuario"
+    }
+
+    // Método público ejecutado automáticamente al hacer clic en el botón btnPreferencias (vía android:onClick)
+    fun onPreferenciasClick(view: View) {
+        // Crea un Intent explícito indicando la pantalla actual (this) y la pantalla destino (PreferenciasActivity)
+        val intent = Intent(this, PreferenciasActivity::class.java)
+        // Empaqueta el nombre de usuario recibido como un dato extra en el Intent con la clave "usuario"
+        intent.putExtra("usuario", nombreUsuario)
+        // Inicia la navegación y lanza la Activity de Preferencias
+        startActivity(intent)
     }
 }

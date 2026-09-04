@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".BienvenidaActivity">
 
+    <!-- Mensaje de bienvenida centrado horizontalmente y en la mitad superior -->
     <TextView
         android:id="@+id/txtBienvenida"
         android:layout_width="wrap_content"
@@ -14,9 +15,23 @@
         android:text="Bienvenido"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnPreferencias"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Botón para navegar a la pantalla de Preferencias -->
+    <Button
+        android:id="@+id/btnPreferencias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="onPreferenciasClick"
+        android:text="Preferencias"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtBienvenida" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
