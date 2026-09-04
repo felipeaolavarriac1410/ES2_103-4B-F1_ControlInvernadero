@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Contenedor principal ConstraintLayout para organizar la pantalla de Preferencias -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,5 +7,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PreferenciasActivity">
+
+    <!-- Título de la pantalla de Preferencias centrado en la parte superior -->
+    <TextView
+        android:id="@+id/txtTituloPreferencias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Preferencias"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Contenedor lineal vertical de ancho completo ubicado debajo del título -->
+    <LinearLayout
+        android:id="@+id/layoutPreferencias"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloPreferencias">
+
+        <!-- Switch para activar o desactivar la recepción de notificaciones -->
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swNotificaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recibir notificaciones"
+            android:textSize="16sp" />
+
+        <!-- Selector desplegable (Spinner) para elegir el idioma preferido -->
+        <Spinner
+            android:id="@+id/spIdioma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:entries="@array/idiomas"
+            android:minHeight="48dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
