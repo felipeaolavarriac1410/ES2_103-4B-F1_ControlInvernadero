@@ -40,6 +40,10 @@
             android:name=".views.ListaActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".views.CrearLecturaActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

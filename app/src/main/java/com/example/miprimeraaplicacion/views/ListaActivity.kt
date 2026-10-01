@@ -12,6 +12,8 @@ import com.example.miprimeraaplicacion.models.Lectura
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import android.content.Intent
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // Declara la clase ListaActivity que hereda de AppCompatActivity (representa una pantalla de Android)
 class ListaActivity : AppCompatActivity() {
@@ -45,6 +47,16 @@ class ListaActivity : AppCompatActivity() {
 
         // Llama al método personalizado que se encarga de escuchar los cambios en la base de datos en tiempo real
         escucharLectura()
+
+        // Busca el FAB en el diseño XML
+        val fabAgregar = findViewById<FloatingActionButton>(R.id.fabAgregarLectura)
+        // Le asigna un escuchador para que haga algo cuando sea presionado
+        fabAgregar.setOnClickListener {
+            // Crea un Intent para ir a la nueva pantalla CrearLecturaActivity
+            val intent = Intent(this, CrearLecturaActivity::class.java)
+            // Lanza la nueva pantalla
+            startActivity(intent)
+        }
     }
 
     // Método personalizado para conectarse a Firestore y escuchar la colección de lecturas
