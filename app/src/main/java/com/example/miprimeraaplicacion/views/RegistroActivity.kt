@@ -1,4 +1,6 @@
 package com.example.miprimeraaplicacion.views
+import com.example.miprimeraaplicacion.R
+
 
 import android.content.Intent
 import android.os.Bundle

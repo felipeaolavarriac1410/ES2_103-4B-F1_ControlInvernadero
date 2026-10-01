@@ -1,4 +1,6 @@
 package com.example.miprimeraaplicacion.views
+import com.example.miprimeraaplicacion.R
+
 
 // Importa Intent para permitir la navegación hacia la pantalla de Preferencias
 import android.content.Intent
@@ -56,6 +58,14 @@ class BienvenidaActivity : AppCompatActivity() {
         // Empaqueta el nombre de usuario recibido como un dato extra en el Intent con la clave "usuario"
         intent.putExtra("usuario", nombreUsuario)
         // Inicia la navegación y lanza la Activity de Preferencias
+        startActivity(intent)
+    }
+
+    // Método público ejecutado automáticamente al hacer clic en el botón btnVerLecturas (vía android:onClick)
+    fun onVerLecturasClick(view: View) {
+        // Crea un Intent para ir a ListaActivity
+        val intent = Intent(this, ListaActivity::class.java)
+        // Inicia la navegación
         startActivity(intent)
     }
 }

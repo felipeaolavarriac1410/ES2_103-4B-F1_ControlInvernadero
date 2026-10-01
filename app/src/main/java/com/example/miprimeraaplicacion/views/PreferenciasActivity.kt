@@ -1,4 +1,6 @@
 package com.example.miprimeraaplicacion.views
+import com.example.miprimeraaplicacion.R
+
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

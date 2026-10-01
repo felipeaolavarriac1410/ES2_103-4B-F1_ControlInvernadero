@@ -29,9 +29,23 @@
         android:layout_marginTop="24dp"
         android:onClick="onPreferenciasClick"
         android:text="Preferencias"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnVerLecturas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida" />
+
+    <!-- Botón para navegar a la pantalla de Lecturas -->
+    <Button
+        android:id="@+id/btnVerLecturas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onVerLecturasClick"
+        android:text="Ver Lecturas"
+        android:backgroundTint="#2196F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPreferencias" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
