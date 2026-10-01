@@ -36,11 +36,21 @@ class ListaActivity : AppCompatActivity() {
         // Inicializa la instancia de la base de datos Firestore
         db = Firebase.firestore
 
-        // Inicializa el adaptador de lecturas. Ahora le pasamos una función que dice qué hacer
-        // cuando se presione el botón de eliminar de algún ítem.
-        adapter = LecturaAdapter { lecturaAEliminar ->
-            mostrarDialogoConfirmacion(lecturaAEliminar)
-        }
+        // Inicializa el adaptador pasándole las dos funciones: qué hacer al editar y qué hacer al eliminar
+        adapter = LecturaAdapter(
+            onEditarClick = { lecturaAEditar ->
+                // Cuando tocan la fila, abrimos el formulario en "Modo Editar" pasándole los datos
+                val intent = Intent(this, FormularioLecturaActivity::class.java)
+                intent.putExtra("lecturaId", lecturaAEditar.id)
+                intent.putExtra("lecturaDescripcion", lecturaAEditar.descripcion)
+                intent.putExtra("lecturaValor", lecturaAEditar.valor)
+                startActivity(intent)
+            },
+            onEliminarClick = { lecturaAEliminar ->
+                // Cuando tocan el basurero, mostramos el diálogo
+                mostrarDialogoConfirmacion(lecturaAEliminar)
+            }
+        )
         
         // Busca y enlaza el componente RecyclerView del diseño XML usando su ID (rvLecturas)
         rvLecturas = findViewById(R.id.rvLecturas)
@@ -56,8 +66,8 @@ class ListaActivity : AppCompatActivity() {
         val fabAgregar = findViewById<FloatingActionButton>(R.id.fabAgregarLectura)
         // Le asigna un escuchador para que haga algo cuando sea presionado
         fabAgregar.setOnClickListener {
-            // Crea un Intent para ir a la nueva pantalla CrearLecturaActivity
-            val intent = Intent(this, CrearLecturaActivity::class.java)
+            // Crea un Intent para ir a la pantalla del formulario en "Modo Crear" (sin enviarle ID)
+            val intent = Intent(this, FormularioLecturaActivity::class.java)
             // Lanza la nueva pantalla
             startActivity(intent)
         }

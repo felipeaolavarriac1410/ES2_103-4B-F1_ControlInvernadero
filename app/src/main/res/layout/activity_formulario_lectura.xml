@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- Título de la pantalla -->
+    <!-- Título dinámico de la pantalla -->
     <TextView
-        android:id="@+id/txtTituloCrear"
+        android:id="@+id/txtTituloFormulario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nueva Lectura"
+        tools:text="Nueva Lectura"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTituloCrear" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloFormulario" />
 
     <!-- Campo de texto numérico para el Valor -->
     <EditText

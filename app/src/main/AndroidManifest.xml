@@ -41,7 +41,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".views.CrearLecturaActivity"
+            android:name=".views.FormularioLecturaActivity"
             android:exported="false" />
 
     </application>

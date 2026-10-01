@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.miprimeraaplicacion.R
 import com.example.miprimeraaplicacion.models.Lectura
 
-// Modificamos el constructor para recibir una función (lambda) que se ejecutará cuando se haga clic en eliminar
+// El constructor ahora recibe dos funciones (lambdas): una para editar y otra para eliminar
 class LecturaAdapter(
     private var listaLecturas: List<Lectura> = listOf(),
+    private val onEditarClick: (Lectura) -> Unit,
     private val onEliminarClick: (Lectura) -> Unit
 ) : RecyclerView.Adapter<LecturaAdapter.LecturaViewHolder>() {
 
@@ -22,8 +23,8 @@ class LecturaAdapter(
 
     override fun onBindViewHolder(holder: LecturaViewHolder, position: Int) {
         val lectura = listaLecturas[position]
-        // Le pasamos al bind la lectura y la función que debe ejecutarse al presionar el botón de eliminar
-        holder.bind(lectura, onEliminarClick)
+        // Le pasamos al bind la lectura y ambas funciones de clic
+        holder.bind(lectura, onEditarClick, onEliminarClick)
     }
 
     override fun getItemCount(): Int {
@@ -38,17 +39,20 @@ class LecturaAdapter(
     class LecturaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val txtDescripcion: TextView = itemView.findViewById(R.id.txtDescripcion)
         private val txtValor: TextView = itemView.findViewById(R.id.txtValor)
-        // Agregamos la referencia al botón de eliminar que creamos en el XML
         private val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
 
-        // Actualizamos el bind para recibir la función de eliminación
-        fun bind(lectura: Lectura, onEliminarClick: (Lectura) -> Unit) {
+        fun bind(lectura: Lectura, onEditarClick: (Lectura) -> Unit, onEliminarClick: (Lectura) -> Unit) {
             txtDescripcion.text = lectura.descripcion
             txtValor.text = "Valor: ${lectura.valor}"
 
-            // Configuramos qué pasa cuando alguien toca el tarro de basura
+            // Configuramos qué pasa cuando alguien toca CUALQUIER PARTE de la fila (para editar)
+            itemView.setOnClickListener {
+                onEditarClick(lectura)
+            }
+
+            // Configuramos qué pasa cuando alguien toca ESPECÍFICAMENTE el basurero (para eliminar)
             btnEliminar.setOnClickListener {
-                onEliminarClick(lectura) // Ejecutamos la función que nos pasaron, entregándole la lectura actual
+                onEliminarClick(lectura)
             }
         }
     }
