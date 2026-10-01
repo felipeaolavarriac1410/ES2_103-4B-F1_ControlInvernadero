@@ -107,4 +107,17 @@
         app:layout_constraintStart_toStartOf="@+id/btnIngresar"
         app:layout_constraintTop_toBottomOf="@+id/btnIngresar" />
 
+    <!-- Botón para ir a la pantalla de Registro -->
+    <Button
+        android:id="@+id/btnIrARegistro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#4CAF50"
+        android:onClick="onIrARegistroClick"
+        android:text="¿No tienes cuenta? Regístrate"
+        app:layout_constraintEnd_toEndOf="@+id/btnLimpiar"
+        app:layout_constraintStart_toStartOf="@+id/btnLimpiar"
+        app:layout_constraintTop_toBottomOf="@+id/btnLimpiar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

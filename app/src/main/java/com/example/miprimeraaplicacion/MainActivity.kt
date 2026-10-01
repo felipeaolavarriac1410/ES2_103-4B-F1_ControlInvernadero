@@ -23,8 +23,16 @@ import androidx.core.view.ViewCompat
 // Importa el manejador de márgenes del sistema (barras de estado y navegación)
 import androidx.core.view.WindowInsetsCompat
 
+// FIREBASE: IMPORTACIONES DE FIREBASE AUTHENTICATION
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 // Declaración de la clase principal de la pantalla de Login que hereda de AppCompatActivity
 class MainActivity : AppCompatActivity() {
+
+    // FIREBASE: Instancia principal de Firebase Authentication
+    private lateinit var auth: FirebaseAuth
 
     // Variable de estado a nivel de clase para rastrear si la contraseña está visible (false por defecto)
     var mostrandoPassword: Boolean = false
@@ -48,6 +56,9 @@ class MainActivity : AppCompatActivity() {
             // Retorna los insets procesados
             insets
         }
+
+        // FIREBASE: INICIALIZACIÓN DE LA INSTANCIA DE FIREBASE AUTH
+        auth = Firebase.auth
     }
 
     // Método público ejecutado automáticamente al hacer clic en el botón btnMostrarPassword (vía android:onClick)
@@ -129,12 +140,30 @@ class MainActivity : AppCompatActivity() {
             // Incrementa en 1 el contador de intentos fallidos
             intentosFallidos++
         } else {
-            // Crea un Intent explícito indicando la pantalla actual (this) y la pantalla destino (BienvenidaActivity)
-            val intent = Intent(this, BienvenidaActivity::class.java)
-            // Empaqueta el nombre de usuario como un dato extra en el Intent con la clave "usuario"
-            intent.putExtra("usuario", usuario)
-            // Inicia la navegación y lanza la nueva Activity
-            startActivity(intent)
+            // FIREBASE: INICIO DE AUTENTICACIÓN CON FIREBASE AUTH
+            // Intenta iniciar sesión con el correo y contraseña provistos en Firebase
+            auth.signInWithEmailAndPassword(usuario, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // FIREBASE: INICIO DE SESIÓN EXITOSO EN FIREBASE
+                        val firebaseUser = auth.currentUser
+                        val emailUsuario = firebaseUser?.email ?: usuario
+
+                        Toast.makeText(this, "FIREBASE: Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+
+                        // Crea un Intent explícito indicando la pantalla actual (this) y la pantalla destino (BienvenidaActivity)
+                        val intent = Intent(this, BienvenidaActivity::class.java)
+                        // Empaqueta el email del usuario como un dato extra en el Intent con la clave "usuario"
+                        intent.putExtra("usuario", emailUsuario)
+                        // Inicia la navegación y lanza la nueva Activity
+                        startActivity(intent)
+                    } else {
+                        // FIREBASE: FALLÓ EL INICIO DE SESIÓN EN FIREBASE
+                        intentosFallidos++
+                        val mensajeError = task.exception?.localizedMessage ?: "Error al autenticar usuario"
+                        Toast.makeText(this, "FIREBASE: Error de autenticación: $mensajeError", Toast.LENGTH_LONG).show()
+                    }
+                }
         }
     }
 
@@ -157,5 +186,11 @@ class MainActivity : AppCompatActivity() {
         edtPassword.error = null
         // Desmarca la casilla de verificación de recordarme
         chkRecordarme.isChecked = false
+    }
+
+    // Método público ejecutado automáticamente al hacer clic en el botón de Registrarse (vía android:onClick)
+    fun onIrARegistroClick(view: View) {
+        val intent = Intent(this, RegistroActivity::class.java)
+        startActivity(intent)
     }
 }
