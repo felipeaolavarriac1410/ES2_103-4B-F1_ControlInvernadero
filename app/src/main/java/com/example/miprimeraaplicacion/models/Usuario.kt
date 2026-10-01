@@ -1,4 +1,4 @@
-package com.example.miprimeraaplicacion
+package com.example.miprimeraaplicacion.models
 
 // FIREBASE: MODELO DE DATOS PARA GUARDAR INFORMACIÓN DE USUARIOS EN FIRESTORE
 data class Usuario(

@@ -1,4 +1,4 @@
-package com.example.miprimeraaplicacion
+package com.example.miprimeraaplicacion.views
 
 // Importa Intent para permitir la navegación hacia la pantalla de Preferencias
 import android.content.Intent

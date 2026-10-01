@@ -1,4 +1,4 @@
-package com.example.miprimeraaplicacion
+package com.example.miprimeraaplicacion.views
 
 // Importa la clase Intent para permitir la navegación y comunicación entre Activities (pantallas)
 import android.content.Intent

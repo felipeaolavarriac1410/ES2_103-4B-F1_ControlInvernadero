@@ -1,4 +1,4 @@
-package com.example.miprimeraaplicacion
+package com.example.miprimeraaplicacion.views
 
 import android.content.Intent
 import android.os.Bundle

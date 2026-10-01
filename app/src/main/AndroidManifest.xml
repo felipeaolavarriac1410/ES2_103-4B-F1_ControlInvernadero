@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiPrimeraAplicacion">
         <activity
-            android:name=".BienvenidaActivity"
+            android:name=".views.BienvenidaActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -25,15 +25,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity2"
+            android:name=".views.MainActivity2"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".PreferenciasActivity"
+            android:name=".views.PreferenciasActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".views.RegistroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
