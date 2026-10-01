@@ -1,6 +1,7 @@
 package com.example.miprimeraaplicacion.views
 
 // Importaciones necesarias para interactuar con Android y Firebase
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -35,8 +36,11 @@ class ListaActivity : AppCompatActivity() {
         // Inicializa la instancia de la base de datos Firestore
         db = Firebase.firestore
 
-        // Inicializa el adaptador de lecturas creando una instancia nueva sin datos (lista vacía por defecto)
-        adapter = LecturaAdapter()
+        // Inicializa el adaptador de lecturas. Ahora le pasamos una función que dice qué hacer
+        // cuando se presione el botón de eliminar de algún ítem.
+        adapter = LecturaAdapter { lecturaAEliminar ->
+            mostrarDialogoConfirmacion(lecturaAEliminar)
+        }
         
         // Busca y enlaza el componente RecyclerView del diseño XML usando su ID (rvLecturas)
         rvLecturas = findViewById(R.id.rvLecturas)
@@ -84,5 +88,41 @@ class ListaActivity : AppCompatActivity() {
                 adapter.actualizarLista(listaLecturas)
             }
         }
+    }
+
+    // Muestra una ventana emergente preguntando al usuario si realmente desea eliminar
+    private fun mostrarDialogoConfirmacion(lectura: Lectura) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Eliminar Lectura")
+        builder.setMessage("¿Estás seguro de que deseas eliminar la lectura '${lectura.descripcion}'?")
+        
+        // Si el usuario presiona "Sí, eliminar"
+        builder.setPositiveButton("Sí, eliminar") { dialog, _ ->
+            eliminarRegistro(lectura)
+            dialog.dismiss() // Cierra el diálogo
+        }
+        
+        // Si el usuario presiona "Cancelar"
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss() // Simplemente cierra el diálogo sin hacer nada
+        }
+        
+        // Crea y muestra el diálogo en pantalla
+        builder.create().show()
+    }
+
+    // Lógica para conectarse a Firestore y borrar el documento
+    private fun eliminarRegistro(lectura: Lectura) {
+        // En Firestore, los documentos se borran buscando su ID específico en la colección
+        db.collection("lecturas").document(lectura.id)
+            .delete()
+            .addOnSuccessListener {
+                Log.d("ListaActivity", "Documento eliminado con éxito!")
+                // No necesitamos actualizar la lista a mano aquí, 
+                // porque nuestro 'SnapshotListener' detectará el cambio y se actualizará solo.
+            }
+            .addOnFailureListener { e ->
+                Log.w("ListaActivity", "Error al eliminar documento", e)
+            }
     }
 }
