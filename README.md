@@ -48,11 +48,45 @@ Un proyecto inicial de Android creado para aprender los conceptos fundamentales 
 
 ---
 
+### 🔹 Bloque 4: Integración con Firebase (Autenticación y Base de Datos)
+17. **Configuración Inicial de Firebase:**
+    - Registro de la app en la consola de Firebase.
+    - Agregado del archivo `google-services.json` y configuración de dependencias (BoM, Analytics, Auth y Firestore) en `build.gradle.kts`.
+18. **Firebase Authentication (Registro y Login):**
+    - Creación de `RegistroActivity` para permitir a los usuarios crear cuentas nuevas.
+    - Modificación de `MainActivity` para que el inicio de sesión utilice `auth.signInWithEmailAndPassword()`.
+19. **Arquitectura y Reestructuración (views y models):**
+    - Para mantener el código limpio, se crearon los paquetes `views` (para todas las Activities) y `models` (para las clases de datos como `Usuario.kt` y `Lectura.kt`).
+    - Actualización automática de `AndroidManifest.xml` con las nuevas rutas.
+
+---
+
+### 🔹 Bloque 5: CRUD Completo con Firestore (Crear, Leer, Actualizar, Eliminar)
+20. **Modelo de Datos (`Lectura.kt`):**
+    - Creación de una `data class` utilizando la anotación `@DocumentId` para que Firestore asigne y reconozca automáticamente el ID de cada documento. Atributos: `id`, `descripcion`, `valor`.
+21. **Leer / Mostrar Datos en Tiempo Real (Read):**
+    - Diseño de `activity_lista.xml` (con RecyclerView) y el diseño de cada fila `item_lectura.xml`.
+    - Implementación de `LecturaAdapter` para conectar los datos visuales.
+    - Implementación de `ListaActivity` usando `db.collection("lecturas").addSnapshotListener` para escuchar cambios en la base de datos de manera reactiva (en tiempo real).
+22. **Crear y Actualizar Datos (Create & Update):**
+    - Creación de `FormularioLecturaActivity` reutilizable.
+    - **Modo Crear:** Accesible desde un Botón Flotante (`FloatingActionButton`). Usa `db.collection("lecturas").add(nuevaLectura)`.
+    - **Modo Editar:** Accesible al hacer clic en un elemento de la lista. Pasa los datos a través del `Intent` (ID, Descripción, Valor) y usa `db.collection("lecturas").document(id).set(lecturaActualizada)` para sobreescribir el documento.
+23. **Eliminar Datos (Delete):**
+    - Agregado de un botón de basurero rojo en `item_lectura.xml`.
+    - Uso de funciones Lambda en el `LecturaAdapter` para delegar el evento de clic a la Activity.
+    - Implementación de un `AlertDialog` de confirmación antes de eliminar.
+    - Borrado en Firestore mediante `db.collection("lecturas").document(id).delete()`.
+
+---
+
 ## 🛠️ Tecnologías y Herramientas
 
 - **Lenguaje:** Kotlin
 - **Diseño UI:** Android XML (`ConstraintLayout`, `LinearLayout`, Material Components)
+- **Base de Datos / Backend:** Firebase (Authentication, Firestore, Analytics)
+- **Arquitectura:** Separación en paquetes (views, models, adapters)
+- **Componentes Avanzados:** `RecyclerView`, `AlertDialog`, `FloatingActionButton`, `SnapshotListener`
 - **SDK Mínimo:** Android API 24+
 - **Control de Versiones:** Git & GitHub CLI (`gh`)
 - **Documentación:** Código 100% comentado línea por línea de forma didáctica.
-
