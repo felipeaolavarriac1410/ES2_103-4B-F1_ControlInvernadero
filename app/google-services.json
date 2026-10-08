@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "806586353862",
-    "project_id": "iot-jueves",
-    "storage_bucket": "iot-jueves.firebasestorage.app"
+    "project_number": "295319934206",
+    "project_id": "registrosinvernadero-d15ff",
+    "storage_bucket": "registrosinvernadero-d15ff.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:806586353862:android:20083334d1a48bf16e6fc7",
+        "mobilesdk_app_id": "1:295319934206:android:9357db25980061a8fcc1af",
         "android_client_info": {
           "package_name": "com.example.miprimeraaplicacion"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAO9H3UUkTtIUNJNVB132ON4H-N20b3fqI"
+          "current_key": "AIzaSyCtQF4M-udHoFmhA2A_KvQXQXNOboBe-6o"
         }
       ],
       "services": {

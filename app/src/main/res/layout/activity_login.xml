@@ -4,44 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_vertical">
+    android:gravity="center"
+    android:padding="24dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Preferencias de Usuario"
-        android:textSize="22sp"
+        android:text="Invernadero IoT"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:layout_marginBottom="32dp" />
 
-    <Switch
-        android:id="@+id/switchNotificaciones"
+    <EditText
+        android:id="@+id/edtEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recibir Alertas de Temperatura"
-        android:textSize="16sp"
-        android:layout_marginBottom="20dp" />
+        android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp" />
 
-    <Switch
-        android:id="@+id/switchModoOscuro"
+    <EditText
+        android:id="@+id/edtPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Modo Oscuro"
-        android:textSize="16sp"
-        android:layout_marginBottom="32dp" />
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:layout_marginBottom="24dp" />
 
     <Button
-        android:id="@+id/btnGuardarPreferencias"
+        android:id="@+id/btnIngresar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Preferencias"
+        android:text="Ingresar"
+        android:onClick="onIngresarClick"
         android:layout_marginBottom="12dp" />
 
     <Button
-        android:id="@+id/btnVolverPreferencias"
+        android:id="@+id/btnIrARegistro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:text="Volver" />
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:text="¿No tienes cuenta? Regístrate aquí"
+        android:onClick="onIrARegistroClick" />
 </LinearLayout>

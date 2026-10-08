@@ -1,51 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BienvenidaActivity">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
 
-    <!-- Mensaje de bienvenida centrado horizontalmente y en la mitad superior -->
     <TextView
-        android:id="@+id/txtBienvenida"
+        android:id="@+id/tvMensajeBienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido"
-        android:textSize="24sp"
+        android:text="¡Bienvenido!"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnPreferencias"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:layout_marginBottom="32dp" />
 
-    <!-- Botón para navegar a la pantalla de Preferencias -->
     <Button
-        android:id="@+id/btnPreferencias"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnIrAFormulario"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:onClick="onPreferenciasClick"
+        android:text="Nueva Lectura de Sensor"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnIrALista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Historial de Lecturas"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnIrAPreferencias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Preferencias"
-        app:layout_constraintBottom_toTopOf="@+id/btnVerLecturas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtBienvenida" />
+        android:layout_marginBottom="24dp" />
 
-    <!-- Botón para navegar a la pantalla de Lecturas -->
     <Button
-        android:id="@+id/btnVerLecturas"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="onVerLecturasClick"
-        android:text="Ver Lecturas"
-        android:backgroundTint="#2196F3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPreferencias" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="Cerrar Sesión" />
+</LinearLayout>

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,38 +12,34 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MiPrimeraAplicacion">
+        android:theme="@style/Theme.MiPrimeraAplicacion"
+        tools:targetApi="31">
+
+        <!-- Actividad Principal (Pantalla de inicio al abrir la app) -->
+        <activity
+            android:name=".views.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Demás actividades de la aplicación -->
+        <activity
+            android:name=".views.RegistroActivity"
+            android:exported="false" />
         <activity
             android:name=".views.BienvenidaActivity"
             android:exported="false" />
         <activity
-            android:name=".views.MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".views.MainActivity2"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".views.PreferenciasActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".views.RegistroActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".views.FormularioLecturaActivity"
+            android:exported="false" />
         <activity
             android:name=".views.ListaActivity"
             android:exported="false" />
-
         <activity
-            android:name=".views.FormularioLecturaActivity"
+            android:name=".views.PreferenciasActivity"
             android:exported="false" />
 
     </application>
